@@ -9,6 +9,7 @@ class RandomChar extends Component {
         this.updateChar();
     }
 
+
     state = {
         char: {}
     }

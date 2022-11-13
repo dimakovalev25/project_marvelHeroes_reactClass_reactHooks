@@ -12,6 +12,7 @@ class MarvelService {
         return this.getResource(`https://gateway.marvel.com:443/v1/public/characters?limit=9&offset=200&apikey=1fd8ade1e96af8446fb8bdaba6ce867d`);
     }
 
+
     getCharacter = async (id) => {
         const res = await this.getResource(`https://gateway.marvel.com:443/v1/public/characters/${id}?&apikey=1fd8ade1e96af8446fb8bdaba6ce867d`);
         return this._transformCharacter(res);

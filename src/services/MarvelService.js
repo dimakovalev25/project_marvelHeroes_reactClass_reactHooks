@@ -17,7 +17,6 @@ class MarvelService {
         return this._transformCharacter(res);
     }
 
-
     _transformCharacter = (res) => {
         return {
             name: res.data.results[0].name,

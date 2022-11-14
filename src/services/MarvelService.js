@@ -29,10 +29,9 @@ class MarvelService {
             thumbnail: res.data.results[0].thumbnail.path + "." + res.data.results[0].thumbnail.extension,
             homepage: res.data.results[0].urls[0].url,
             wiki: res.data.results[0].urls[1].url,
+            style: res.data.results[0].thumbnail.path === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available' ? true : false,
         }
     }
-
-
 }
 
 export default MarvelService;

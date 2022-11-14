@@ -17,17 +17,9 @@ class RandomChar extends Component {
 
     componentDidMount() {
         this.updateChar();
-        this.timerId = setInterval(this.updateChar, 555000);
-        // console.log('mount')
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.timerId);
-        // console.log('unmount')
     }
 
     onCharLoaded = (char) => {
-        // console.log('update')
         this.setState({
             char: char,
             loading: false
@@ -51,11 +43,9 @@ class RandomChar extends Component {
 
     onCharacterUpgrade = () => {
         this.updateChar();
-        // console.log('update')
     }
 
     render() {
-        // console.log('render')
         const {char, loading, error} = this.state;
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;

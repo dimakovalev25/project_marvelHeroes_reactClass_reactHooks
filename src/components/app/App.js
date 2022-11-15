@@ -9,6 +9,13 @@ import {Component} from "react";
 class App extends Component {
     state = {
         showRandomChar: true,
+        selectedChar: null
+    }
+
+    onCharSelected = (id) => {
+        this.setState({
+            selectedChar: id
+        })
     }
 
     toggleRandomChar = () => {
@@ -30,8 +37,8 @@ class App extends Component {
 
                     >Char add/delete</button>
                     <div className="char__content">
-                        <CharList/>
-                        <CharInfo/>
+                        <CharList onCharSelected={this.onCharSelected}/>
+                        <CharInfo charId={this.state.selectedChar}/>
                     </div>
                     <img className="bg-decoration" src={decoration} alt="vision"/>
                 </main>

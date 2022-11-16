@@ -6,6 +6,7 @@ import CharInfo from "../charInfo/CharInfo";
 import decoration from '../../resources/img/vision.png';
 import {Component} from "react";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
+import React from "react";
 
 class App extends Component {
     state = {
@@ -28,8 +29,33 @@ class App extends Component {
     }
 
     render() {
+
+        const DynamicComponent = (props) => {
+            return (
+                <div>
+                    {/*{props.children}*/}
+                    {
+                        React.Children.map(props.children, item => {
+                            return React.cloneElement(item, {className: 'randomchar__name'})
+                        })
+                    }
+
+                </div>
+
+            )
+        }
+
         return (
             <div className="app">
+
+                <DynamicComponent>
+                    <h2>by_React</h2>
+                    <h2>
+
+                    </h2>
+                </DynamicComponent>
+
+
                 <AppHeader/>
                 <main>
                     {this.state.showRandomChar ? <RandomChar/> : null}

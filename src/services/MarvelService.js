@@ -1,5 +1,8 @@
 class MarvelService {
 
+    _baseOffset = 210;
+
+
     getResource = async (url) => {
         let res = await fetch(url);
         if (!res.ok) {
@@ -8,8 +11,8 @@ class MarvelService {
         return await res.json();
     }
 
-    getAllCharacters = async () => {
-        const res = await this.getResource(`https://gateway.marvel.com:443/v1/public/characters?limit=12&offset=210&apikey=1fd8ade1e96af8446fb8bdaba6ce867d`);
+    getAllCharacters = async (offset = this._baseOffset) => {
+        const res = await this.getResource(`https://gateway.marvel.com:443/v1/public/characters?limit=6&offset=${offset}&apikey=1fd8ade1e96af8446fb8bdaba6ce867d`);
         return res.data.results;
         // return res.data.results.map(this._transformCharacter);
     }
@@ -30,7 +33,7 @@ class MarvelService {
             homepage: res.data.results[0].urls[0].url,
             wiki: res.data.results[0].urls[1].url,
             style: res.data.results[0].thumbnail.path === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available' ? true : false,
-            comics: res.data.results[0].comics.items
+            comics: res.data.results[0].comics.items.splice(10)
         }
     }
 

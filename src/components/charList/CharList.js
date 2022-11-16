@@ -5,20 +5,37 @@ import MarvelService from "../../services/MarvelService";
 class CharList extends Component {
 
     state = {
-        charList: []
+        charList: [],
+        newItemsLoading: false,
+        offset: 210,
     }
 
     marvelService = new MarvelService();
 
     componentDidMount() {
-        this.updateCharList()
+        this.onRequest()
     }
 
-    onCharListLoaded = (charList) => {
-        this.setState( {
-                charList: charList
-        })
+    onRequest = (offset) => {
+        this.onCharListLoading();
+        this.marvelService.getAllCharacters(offset)
+            .then(this.onCharListLoaded)
+
+    }
+
+    onCharListLoaded = (newCharList) => {
+        this.setState(({offset, charList}) => ({
+            charList: [...charList, ...newCharList],
+            newItemsLoading: false,
+            offset: offset +6
+        }))
         // console.log(charList.map(item => item.thumbnail))
+    }
+
+    onCharListLoading = () => {
+        this.setState({
+            newItemsLoading: true
+        })
     }
 
     updateCharList = () => {
@@ -27,14 +44,16 @@ class CharList extends Component {
             .then(this.onCharListLoaded)
     }
 
+
+
     render() {
-        const {charList} = this.state;
+        const {charList, offset, newItemsLoading} = this.state;
 
         const charItem = charList.map(item => {
             return (
                 <li className="char__item"
                     key={item.id}
-                    onClick={()=> this.props.onCharSelected(item.id)}
+                    onClick={() => this.props.onCharSelected(item.id)}
                 >
                     <img
                         src={item.thumbnail.path + '.' + item.thumbnail.extension}
@@ -49,7 +68,11 @@ class CharList extends Component {
                 <ul className="char__grid">
                     {charItem}
                 </ul>
-                <button className="button button__main button__long">
+                <button
+                    className="button button__main button__long"
+                    disabled={this.newItemLoading}
+                    onClick={() => this.onRequest(offset)}
+                >
                     <div className="inner">load more</div>
                 </button>
             </div>

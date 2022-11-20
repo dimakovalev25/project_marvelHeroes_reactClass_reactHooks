@@ -49,10 +49,8 @@ class App extends Component {
             <div className="app">
 
                 <DynamicComponent>
-                    <h2>by_React</h2>
-                    <h2>
-
-                    </h2>
+                    <h2 style={{color: 'grey'}}>by_React</h2>
+                    {/*<h2>by_React</h2>*/}
                 </DynamicComponent>
 
 

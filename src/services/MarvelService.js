@@ -8,11 +8,13 @@ class MarvelService {
         if (!res.ok) {
             throw new Error(`not fetch ${url}, status ${res.status}`);
         }
+
         return await res.json();
     }
 
     getAllCharacters = async (offset = this._baseOffset) => {
         const res = await this.getResource(`https://gateway.marvel.com:443/v1/public/characters?limit=6&offset=${offset}&apikey=1fd8ade1e96af8446fb8bdaba6ce867d`);
+        console.log(res);
         return res.data.results;
         // return res.data.results.map(this._transformCharacter);
     }

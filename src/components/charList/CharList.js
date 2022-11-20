@@ -23,27 +23,19 @@ class CharList extends Component {
 
     }
 
-    onCharListLoaded = (newCharList) => {
-        this.setState(({offset, charList}) => ({
-            charList: [...charList, ...newCharList],
-            newItemsLoading: false,
-            offset: offset +6
-        }))
-        // console.log(charList.map(item => item.thumbnail))
-    }
-
     onCharListLoading = () => {
         this.setState({
             newItemsLoading: true
         })
     }
 
-    updateCharList = () => {
-        this.marvelService
-            .getAllCharacters()
-            .then(this.onCharListLoaded)
+    onCharListLoaded = (newCharList) => {
+        this.setState(({offset, charList}) => ({
+            charList: [...charList, ...newCharList],
+            newItemsLoading: false,
+            offset: offset + 6
+        }))
     }
-
 
 
     render() {
@@ -70,7 +62,7 @@ class CharList extends Component {
                 </ul>
                 <button
                     className="button button__main button__long"
-                    disabled={this.newItemLoading}
+                    disabled={this.newItemsLoading}
                     onClick={() => this.onRequest(offset)}
                 >
                     <div className="inner">load more</div>

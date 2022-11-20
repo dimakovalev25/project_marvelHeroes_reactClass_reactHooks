@@ -4,80 +4,46 @@ import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 
 import decoration from '../../resources/img/vision.png';
-import {Component} from "react";
+import {useState} from "react";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 import React from "react";
 
-class App extends Component {
-    state = {
-        showRandomChar: true,
-        selectedChar: null
+const App = () => {
+
+    const [selectedChar, setChar] = useState(null);
+    const [showRandomChar, setRandomChar] = useState(true);
+
+    const onCharSelected = (id) => {
+        setChar(id);
     }
 
-    onCharSelected = (id) => {
-        this.setState({
-            selectedChar: id
-        })
+    const toggleRandomChar = () => {
+        setRandomChar(!showRandomChar);
     }
 
-    toggleRandomChar = () => {
-        this.setState((state) => {
-            return {
-                showRandomChar: !state.showRandomChar
-            }
-        })
-    }
+    return (
+        <div className="app">
+            <AppHeader/>
+            <main>
 
-    render() {
+                {showRandomChar ? <RandomChar/> : null}
 
-        const DynamicComponent = (props) => {
-            return (
-                <div>
-                    {/*{props.children}*/}
-                    {
-                        React.Children.map(props.children, item => {
-                            return React.cloneElement(item, {className: 'randomchar__name'})
-                        })
-                    }
+                <button
+                    onClick={toggleRandomChar}
+                >Char add/delete
+                </button>
 
+                <div className="char__content">
+                    <CharList onCharSelected={onCharSelected}/>
+                    < ErrorBoundary>
+                        <CharInfo charId={selectedChar}/>
+                    < /ErrorBoundary>
                 </div>
 
-            )
-        }
-
-        return (
-            <div className="app">
-
-                <DynamicComponent>
-                    <h2 style={{color: 'grey'}}>by_React</h2>
-                    {/*<h2>by_React</h2>*/}
-                </DynamicComponent>
-
-
-                <AppHeader/>
-                <main>
-                    {this.state.showRandomChar ? <RandomChar/> : null}
-
-                    <button
-                        onClick={this.toggleRandomChar}
-
-                    >Char add/delete
-                    </button>
-                    <div className="char__content">
-
-                        <CharList onCharSelected={this.onCharSelected}/>
-
-                        < ErrorBoundary>
-                            <CharInfo charId={this.state.selectedChar}/>
-                        < /ErrorBoundary>
-
-
-                    </div>
-                    <img className="bg-decoration" src={decoration} alt="vision"/>
-                </main>
-            </div>
-        )
-    }
+                <img className="bg-decoration" src={decoration} alt="vision"/>
+            </main>
+        </div>
+    )
 }
 
 export default App;

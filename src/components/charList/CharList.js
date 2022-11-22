@@ -9,39 +9,23 @@ const CharList = (props) => {
     const [charList, setCharList] = useState([]);
     const [newItemsLoading, setNewItemsLoading] = useState(false);
     const [offset, setOffset] = useState(210);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
 
-
-    const marvelService = new MarvelService();
+    const {loading, error, getAllCharacters} = MarvelService();
 
     useEffect(() => {
-        onRequest();
+        onRequest(offset, true);
     }, [])
 
-    const onRequest = (offset) => {
-        onCharListLoading();
-        marvelService.getAllCharacters(offset)
+    const onRequest = (offset, initial) => {
+        initial ?  setNewItemsLoading(false) : setNewItemsLoading(true);
+        getAllCharacters(offset)
             .then(onCharListLoaded)
-            .catch(onError)
-
-    }
-
-    const onError = () => {
-        setError(true);
-        setLoading(loading => false);
-    }
-
-    const onCharListLoading = () => {
-        setNewItemsLoading(true);
     }
 
     const onCharListLoaded = (newCharList) => {
         setCharList(charList => [...charList, ...newCharList]);
         setNewItemsLoading(NewItemsLoading => false);
-        setLoading(loading => false);
         setOffset(offset => offset + 9);
-
     }
 
     const itemRefs = useRef([]);
@@ -72,11 +56,8 @@ const CharList = (props) => {
         )
     })
 
-
-
     const errorMess = error ? <ErrorMessage  /> : null;
-    const spinner = loading ? <SpinnerBig/> : null;
-    const content = !(loading || error) ? {charItem} : null;
+    const spinner = loading && !newItemsLoading ? <SpinnerBig/> : null;
 
     return (
         <div className="char__list">

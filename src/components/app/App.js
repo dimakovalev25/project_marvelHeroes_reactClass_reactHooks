@@ -26,18 +26,16 @@ const App = () => {
     return (
         <div className="app">
 
-
-
             <main>
             <AppHeader/>
             <Comics/>
-                {showRandomChar ? <RandomChar/> : null}
-                <div className="char__content">
-                    <CharList onCharSelected={onCharSelected}/>
-                    <CharInfo charId={selectedChar}/>
-                </div>
-                <SingleComic/>
-                <img className="bg-decoration" src={decoration} alt="vision"/>
+                {/*{showRandomChar ? <RandomChar/> : null}*/}
+                {/*<div className="char__content">*/}
+                {/*    <CharList onCharSelected={onCharSelected}/>*/}
+                {/*    <CharInfo charId={selectedChar}/>*/}
+                {/*</div>*/}
+                {/*<SingleComic/>*/}
+                {/*<img className="bg-decoration" src={decoration} alt="vision"/>*/}
             </main>
 
         </div>

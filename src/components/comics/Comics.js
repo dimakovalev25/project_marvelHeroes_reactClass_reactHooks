@@ -1,9 +1,54 @@
 import './Comics.scss'
 import avengers from '../../resources/img/Avengers.png'
 import avengersLogo from '../../resources/img/Avengers_logo.png'
-import firstComicsPage from '../../resources/img/UW.png'
+import {useState, useRef, useEffect} from "react";
+import MarvelService from "../../services/MarvelService";
+import ErrorMessage from "../errorMessage/ErrorMessage";
+import SpinnerBigComics from "../spinner/SpinnerBigComics";
 
 const Comics = () => {
+    const [comicsList, setComicsList] = useState([]);
+    const [newItemsLoading, setNewItemsLoading] = useState(false);
+    const [offset, setOffset] = useState(1);
+
+    const {loading, error, getAllComics} = MarvelService();
+
+    useEffect(() => {
+        onRequest(offset, true);
+    }, [])
+
+    const onRequest = (offset, initial) => {
+        initial ? setNewItemsLoading(false) : setNewItemsLoading(true);
+        getAllComics(offset)
+            .then(onCharListLoaded)
+    }
+
+    const onCharListLoaded = (newComicsList) => {
+        setComicsList(comicsList => [...comicsList, ...newComicsList]);
+        setNewItemsLoading(NewItemsLoading => false);
+        setOffset(offset => offset + 8)
+    }
+
+
+    const comicsItem = comicsList.map((item) => {
+        return (
+            <div className='randomComics__active__item'
+                 key={item.id}
+
+            >
+                <img className="randomComics__active__img"
+                     src={item.thumbnail.path + '.' + item.thumbnail.extension}
+                     alt={item.name}/>
+                <div className="randomComics__active__img__info">
+                    <p>{item.title}</p>
+                    <p className="randomComics__active__img__price">9.99$</p>
+                </div>
+
+            </div>
+        )
+    })
+
+    const spinner = loading && !newItemsLoading ? <SpinnerBigComics/> : null;
 
     return (
         <div className="randomComics">
@@ -13,62 +58,21 @@ const Comics = () => {
                 <img src={avengers} alt="avengers" className="randomComics__decoration"/>
                 <img src={avengersLogo} alt="avengersLogo" className="randomComics__decoration__logo"/>
             </div>
-            <ViewComics/>
-        </div>
-    )
 
-}
-
-
-const ViewComics = () => {
-
-    return (
-        <div className='randomComics__active'>
-            <div className='randomComics__active__item'>
-                <img className="randomComics__active__img" src={firstComicsPage} alt="firstComicsPage"/>
-                <div className="randomComics__active__img__info">
-                    <p>ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</p>
-                    <p className="randomComics__active__img__price">9.99$</p>
-
-                </div>
-            </div>
-
-            <div className='randomComics__active__item'>
-                <img className="randomComics__active__img" src={firstComicsPage} alt="firstComicsPage"/>
-                <div className="randomComics__active__img__info">
-                    <p>ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</p> <br/>
-                    <p>9.99$</p>
-
-                </div>
-            </div>
-
-            <div className='randomComics__active__item'>
-                <img className="randomComics__active__img" src={firstComicsPage} alt="firstComicsPage"/>
-                <div className="randomComics__active__img__info">
-                    <p>ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</p> <br/>
-                    <p>9.99$</p>
-
-                </div>
-            </div>
-
-            <div className='randomComics__active__item'>
-                <img className="randomComics__active__img" src={firstComicsPage} alt="firstComicsPage"/>
-                <div className="randomComics__active__img__info">
-                    <p>ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</p> <br/>
-                    <p>9.99$</p>
-
-                </div>
-            </div>
-
-            <div className='randomComics__active__item'>
-                <img className="randomComics__active__img" src={firstComicsPage} alt="firstComicsPage"/>
-                <div className="randomComics__active__img__info">
-                    <p>ULTIMATE X-MEN VOL. 5: ULTIMATE WAR TPB</p> <br/>
-                    <p>9.99$</p>
-
-                </div>
+            <div className='randomComics__active'>
+                {spinner}
+                {comicsItem}
 
             </div>
+
+            <button
+                className="button button__main button__long"
+                // disabled={newItemsLoading}
+                onClick={() => onRequest()}
+
+            >
+                <div className="inner">load more</div>
+            </button>
         </div>
     )
 }

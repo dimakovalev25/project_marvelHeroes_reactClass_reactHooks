@@ -71,7 +71,7 @@ const Comics = () => {
                 onClick={() => onRequest()}
 
             >
-                <div className="inner">load more</div>
+                <div className="inner button__comics">load more</div>
             </button>
         </div>
     )

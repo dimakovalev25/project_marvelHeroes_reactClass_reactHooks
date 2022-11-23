@@ -1,0 +1,67 @@
+
+.randomComics {
+  /*display: grid;*/
+  /*grid-template-columns: repeat(2, 50%);*/
+  margin-top: 50px;
+  align-items: center;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+
+  &__static {
+    height: 100px;
+    margin-bottom: 50px;
+    background-color: #232222;
+    position: relative;
+  }
+
+  &__title {
+    padding-top: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.045em;
+    color: #FFFFFF;
+  }
+
+  &__decoration {
+    position: absolute;
+    bottom: 1px;
+    left: 45px;
+  }
+
+  &__decoration__logo {
+    position: absolute;
+    bottom: -2px;
+    right: 25px;
+  }
+}
+
+.randomComics__active {
+  border: 4px solid red;
+  display: grid;
+  grid-template-columns: repeat(4, 230px);
+  grid-template-rows: auto;
+  gap: 60px;
+
+  &__img {
+    width: 225px;
+    height: 345px;
+
+    &__info {
+      padding-top: 10px;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 16px;
+      color: #000000;
+    }
+    &__price {
+      padding-top: 8px;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+}

@@ -7,6 +7,8 @@ import decoration from '../../resources/img/vision.png';
 import {useState} from "react";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 import React from "react";
+import SingleComic from "../singleComic/SingleComic";
+import Comics from "../comics/Comics";
 
 const App = () => {
 
@@ -23,25 +25,21 @@ const App = () => {
 
     return (
         <div className="app">
-            <AppHeader/>
+
+
+
             <main>
-
+            <AppHeader/>
+            <Comics/>
                 {showRandomChar ? <RandomChar/> : null}
-
-                <button
-                    onClick={toggleRandomChar}
-                >Char add/delete
-                </button>
-
                 <div className="char__content">
                     <CharList onCharSelected={onCharSelected}/>
-                    < ErrorBoundary>
-                        <CharInfo charId={selectedChar}/>
-                    < /ErrorBoundary>
+                    <CharInfo charId={selectedChar}/>
                 </div>
-
+                <SingleComic/>
                 <img className="bg-decoration" src={decoration} alt="vision"/>
             </main>
+
         </div>
     )
 }

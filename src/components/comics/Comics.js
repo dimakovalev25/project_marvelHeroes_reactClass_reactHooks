@@ -1,4 +1,5 @@
 import './Comics.scss'
+import {Link} from "react-router-dom";
 import avengers from '../../resources/img/Avengers.png'
 import avengersLogo from '../../resources/img/Avengers_logo.png'
 import {useState, useRef, useEffect} from "react";
@@ -38,26 +39,29 @@ const Comics = () => {
     }
 
 
-
     const comicsItem = comicsList.map((item, i) => {
         return (
-            <div className='randomComics__activ'
-                 key={item.id}
-                 ref={el => itemRefs.current[i] = el}
-                 onClick={() => {
-                     focusOnItem(i)
-                 }}
+            <Link to={`/comics/${item.id}`}>
+                <div className='randomComics__activ'
+                     key={item.id}
+                     ref={el => itemRefs.current[i] = el}
+                     onClick={() => {
+                         focusOnItem(i)
+                     }}
 
-            >
-                <img className="randomComics__active__img"
-                     src={item.thumbnail.path + '.' + item.thumbnail.extension}
-                     alt={item.name}/>
-                <div className="randomComics__active__img__info">
-                    <p>{item.title}</p>
-                    <p className="randomComics__active__img__price">9.99$</p>
+                >
+                    <img className="randomComics__active__img"
+                         src={item.thumbnail.path + '.' + item.thumbnail.extension}
+                         alt={item.name}/>
+                    <div className="randomComics__active__img__info">
+                        <p>{item.title}</p>
+                        <p className="randomComics__active__img__price">Price: Not found</p>
+                    </div>
+
                 </div>
 
-            </div>
+
+            </Link>
         )
     })
 

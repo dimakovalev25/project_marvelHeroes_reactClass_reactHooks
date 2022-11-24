@@ -29,11 +29,24 @@ const Comics = () => {
         setOffset(offset => offset + 8)
     }
 
+    const itemRefs = useRef([]);
 
-    const comicsItem = comicsList.map((item) => {
+    const focusOnItem = (id) => {
+        itemRefs.current.forEach(item => item.classList.remove('char__item_selected'));
+        itemRefs.current[id].classList.add('char__item_selected');
+        itemRefs.current[id].focus();
+    }
+
+
+
+    const comicsItem = comicsList.map((item, i) => {
         return (
-            <div className='randomComics__active__item'
+            <div className='randomComics__activ'
                  key={item.id}
+                 ref={el => itemRefs.current[i] = el}
+                 onClick={() => {
+                     focusOnItem(i)
+                 }}
 
             >
                 <img className="randomComics__active__img"

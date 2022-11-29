@@ -15,7 +15,12 @@ const CharSearch = (props) => {
     console.log(char)
 
 
-    const {loading, getCharacterByName} = MarvelService();
+    const {getCharacterByName} = MarvelService();
+
+
+    // useEffect=(() => {
+    //     updateCharItem()
+    // }, [])
 
     const updateCharItem = (event, char) => {
         event.preventDefault()
@@ -40,7 +45,7 @@ const CharSearch = (props) => {
 
 
     const charNull = () => {
-        setChar('')
+        setCharItem(null)
     }
 
     const successfulSearch = charItem ? <h2>There is! Visit page?</h2> : null;
@@ -68,10 +73,9 @@ const CharSearch = (props) => {
 
                     <div>
                         <button
-                            onClick={(event) =>
-                                updateCharItem(event, char)
-
-                            }
+                            onClick={(event) => {
+                                updateCharItem(event, char); charNull()
+                            }}
                             className="button button__main"
                         >
                             <div className="inner">FIND</div>

@@ -3,6 +3,7 @@ import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 import decoration from '../../resources/img/vision.png';
 import React, {useState} from "react";
+import CharSearch from "../charSearch/CharSearch";
 
 const MainPage = () => {
     const [selectedChar, setChar] = useState(null);
@@ -20,7 +21,10 @@ const MainPage = () => {
             {showRandomChar ? <RandomChar/> : null}
             <div className="char__content">
                 <CharList onCharSelected={onCharSelected}/>
-                <CharInfo charId={selectedChar}/>
+                <div>
+                    <CharInfo charId={selectedChar}/>
+                    <CharSearch/>
+                </div>
             </div>
             <img className="bg-decoration" src={decoration} alt="vision"/>
         </>

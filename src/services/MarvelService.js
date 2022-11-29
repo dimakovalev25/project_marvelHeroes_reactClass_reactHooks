@@ -8,6 +8,12 @@ const MarvelService = () => {
     // const _baseOffsetComics = 8;
     const _baseOffsetComics = Math.floor(Math.random() * (200 - 4)) + 4;
 
+    const getCharacterByName = async (name) => {
+        const res = await request(`https://gateway.marvel.com:443/v1/public/characters?name=${name}&apikey=1fd8ade1e96af8446fb8bdaba6ce867d`);
+        return _transformCharacter(res);
+
+    }
+
     const getAllCharacters = async (offset = _baseOffset) => {
         const res = await request(`https://gateway.marvel.com:443/v1/public/characters?limit=6&offset=${_baseOffset}&apikey=1fd8ade1e96af8446fb8bdaba6ce867d`);
         return res.data.results;
@@ -56,7 +62,7 @@ const MarvelService = () => {
         }
     }
 
-    return {loading, error, getAllCharacters, getCharacter, getAllComics, getComics}
+    return {loading, error, getAllCharacters, getCharacter, getAllComics, getComics, getCharacterByName}
 }
 
 export default MarvelService;

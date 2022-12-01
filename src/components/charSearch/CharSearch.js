@@ -11,8 +11,8 @@ const CharSearch = (props) => {
     const [char, setChar] = useState('');
     const [check, setCheck] = useState(false);
 
-    console.log(charItem)
-    console.log(char)
+    // console.log(charItem)
+    // console.log(char)
 
 
     const {getCharacterByName} = MarvelService();
@@ -39,7 +39,6 @@ const CharSearch = (props) => {
     }
 
     const updateCharItemError = () => {
-        console.log('error')
         setCheck(true);
     }
 

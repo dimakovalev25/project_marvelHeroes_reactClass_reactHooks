@@ -2,7 +2,7 @@ import {useHttp} from "../hooks/http.hook";
 
 const MarvelService = () => {
 
-    const {loading, request, error} = useHttp();
+    const {loading, request, error, process, clearError, setProcess} = useHttp();
     // const _baseOffset = 210;
     const _baseOffset = Math.floor(Math.random() * (1300 - 4)) + 4;;
     // const _baseOffsetComics = 8;
@@ -37,8 +37,6 @@ const MarvelService = () => {
 
     }
 
-
-
     const _transformCharacter = (res) => {
         return {
             name: res.data.results[0].name,
@@ -62,7 +60,7 @@ const MarvelService = () => {
         }
     }
 
-    return {loading, error, getAllCharacters, getCharacter, getAllComics, getComics, getCharacterByName}
+    return {loading, error, process, setProcess, getAllCharacters, getCharacter, getAllComics, getComics, getCharacterByName}
 }
 
 export default MarvelService;

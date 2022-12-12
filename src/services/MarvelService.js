@@ -9,7 +9,8 @@ class MarvelService {
     }
 
     getAllcharacters = async () => {
-        const res = await this.getResource('https://gateway.marvel.com:443/v1/public/characters?limit=9&offset=210&apikey=1fd8ade1e96af8446fb8bdaba6ce867d');
+        let offset = Math.floor(Math.random() * (1000 + 1) - 1)
+        const res = await this.getResource(`https://gateway.marvel.com:443/v1/public/characters?limit=9&offset=${offset}&apikey=1fd8ade1e96af8446fb8bdaba6ce867d`);
         return res.data.results;
     }
 
@@ -26,6 +27,7 @@ class MarvelService {
             thumbnail: res.data.results[0].thumbnail.path + '.' + res.data.results[0].thumbnail.extension,
             homepage: res.data.results[0].urls[0].url,
             wiki: res.data.results[0].urls[1].url,
+            comics: res.data.results[0].comics.items.splice(0, 10),
         }
     }
 

@@ -7,30 +7,47 @@ class CharList extends Component {
     state = {
         charList: [],
         loading: true,
+        newItemLoading: false,
+        offset: 1
     }
 
     marvelServise = new MarvelService();
 
     updateCharList = () => {
-        this.marvelServise
-            .getAllcharacters()
-            .then(this.onCharListLoaded)
+        this.onRequest()
     }
 
     componentDidMount() {
         this.updateCharList()
     }
 
-    onCharListLoaded = (charList) => {
+    onRequest = (offset) => {
+        this.onCharListLoading();
+        this.marvelServise
+            .getAllcharacters(offset)
+            .then(this.onCharListLoaded)
+    }
+
+    onCharListLoading = () => {
         this.setState({
-            charList: charList,
-            loading: false
+            newItemLoading: true
         })
+    }
+
+    onCharListLoaded = (newCharList) => {
+        this.setState(({offset, charList}) => ({
+            charList: [...charList, ...newCharList],
+            loading: false,
+            newItemLoading: false,
+            offset: offset + 6
+
+        }))
     }
 
 
     render() {
-        const {charList, loading} = this.state;
+        const {charList, loading, newItemLoading} = this.state;
+        // console.log(charList)
 
         const charItem = charList.map(item => {
             return (
@@ -55,7 +72,10 @@ class CharList extends Component {
                     {loading ? <SpinnerBig style={{alignItems: 'center'}}/> : charItem}
                 </ul>
                 <button className="button button__main button__long">
-                    <div className="inner">load more</div>
+                    <div
+                        onClick={()=> this.onRequest()}
+                        // disabled={newItemLoading}
+                        className="inner">load more</div>
                 </button>
             </div>
         )

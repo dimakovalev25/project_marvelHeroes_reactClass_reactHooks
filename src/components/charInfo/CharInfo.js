@@ -5,9 +5,6 @@ import MarvelService from "../../services/MarvelService";
 import Spinner from "../spinner/Spinner";
 import Skeleton from "../skeleton/Skeleton";
 
-
-
-
 class CharInfo extends Component {
 
     state={

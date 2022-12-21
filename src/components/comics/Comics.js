@@ -1,10 +1,10 @@
 import './Comics.scss'
 import avengers from '../../resources/img/Avengers.png'
 import avengersLogo from '../../resources/img/Avengers_logo.png'
-import {useState, useRef, useEffect} from "react";
+import {useEffect, useRef, useState} from "react";
 import useMarvelService from "../../services/useMarvelService";
-import ErrorMessage from "../errorMessage/ErrorMessage";
 import SpinnerBigComics from "../spinner/SpinnerBigComics";
+import {Link} from "react-router-dom";
 
 const Comics = () => {
     const [comicsList, setComicsList] = useState([]);
@@ -41,7 +41,8 @@ const Comics = () => {
 
     const comicsItem = comicsList.map((item, i) => {
         return (
-            <div className='randomComics__activ'
+            <Link to={`/comics/${item.id}`}
+                className='randomComics__activ'
                  key={item.id}
                  ref={el => itemRefs.current[i] = el}
                  onClick={() => {
@@ -57,7 +58,7 @@ const Comics = () => {
                     <p className="randomComics__active__img__price">9.99$</p>
                 </div>
 
-            </div>
+            </Link>
         )
     })
 
@@ -80,7 +81,6 @@ const Comics = () => {
 
             <button
                 className="button button__main button__long"
-                // disabled={newItemsLoading}
                 onClick={() => onRequest()}
 
             >

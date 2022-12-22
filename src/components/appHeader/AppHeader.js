@@ -1,5 +1,6 @@
 import './appHeader.scss';
 import {Link, NavLink} from "react-router-dom";
+import UseContext from "../../context/useContext";
 
 const AppHeader = () => {
     return (
@@ -8,6 +9,9 @@ const AppHeader = () => {
                 <Link to={'/'}>
                     <span>Marvel</span> information portal
                 </Link>
+                <br/>
+
+                <UseContext/>
             </h1>
             <nav className="app__menu">
                 <ul>

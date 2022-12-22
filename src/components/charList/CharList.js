@@ -3,6 +3,7 @@ import {useState, useEffect, useRef} from "react";
 import UseMarvelService from "../../services/useMarvelService";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import SpinnerBig from "../spinner/SpinnerBig";
+import {some} from "./FunctionSome";
 
 const CharList = (props) => {
 
@@ -58,6 +59,12 @@ const CharList = (props) => {
 
     const errorMess = error ? <ErrorMessage  /> : null;
     const spinner = loading && !newItemsLoading ? <SpinnerBig/> : null;
+
+    if(loading) {
+        import('./FunctionSome')
+            .then(obj => obj.some())
+            .catch()
+    }
 
     return (
         <div className="char__list">

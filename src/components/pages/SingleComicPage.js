@@ -4,6 +4,8 @@ import {useEffect, useState} from "react";
 import UseMarvelService from "../../services/useMarvelService";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/Spinner";
+import {Link} from "react-router-dom";
+import {Page404} from "./index";
 
 
 const SingleComicPage = () => {
@@ -28,7 +30,7 @@ const SingleComicPage = () => {
 
 
     const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
+    const spinner = loading ? <Page404/> : null;
     const content = !(loading || !comics) ? <View comics={comics}/> : null;
 
     return (
@@ -53,8 +55,8 @@ const View = ({comics}) => {
                     <p className="single-comic__descr">{description}</p>
                     <p className="single-comic__descr">Language: en-us</p>
                     <div className="single-comic__price">9.99$</div>
-<hr/>
-                <a href="#" className="single-comic__back">Back to all</a>
+                    <hr/>
+                    <Link to={'/comics'} className="single-comic__back">Back to all</Link>
                 </div>
             </div>
         </>

@@ -27,6 +27,13 @@ const UseMarvelService = () => {
         return _transformCharacter(res);
     }
 
+    const getChar = async (charName) => {
+        const res = await request( `https://gateway.marvel.com:443/v1/public/characters?name=${charName}&orderBy=-name&apikey=1fd8ade1e96af8446fb8bdaba6ce867d`);
+
+        return res.data.results[0];
+        // return res;
+    }
+
 
     const getAllComics = async () => {
         const res = await request(`https://gateway.marvel.com:443/v1/public/comics?limit=8&offset=${_baseOffsetComics}&apikey=1fd8ade1e96af8446fb8bdaba6ce867d`);
@@ -62,7 +69,7 @@ const UseMarvelService = () => {
         }
     }
 
-    return {loading,error, getCharacter, getAllCharacters, getAllComics, getComics};
+    return {loading,error, getCharacter, getAllCharacters, getAllComics, getComics, getChar};
 
 }
 

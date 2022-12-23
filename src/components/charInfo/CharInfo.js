@@ -6,12 +6,12 @@ import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Skeleton from "../skeleton/Skeleton";
 import PropTypes from 'prop-types';
+import CharSearch from "../charSearch/CharSearch";
 
 
 const CharInfo = (props) => {
 
     const [char, setChar] = useState(null);
-
     const {loading, error, getCharacter} = UseMarvelService();
 
     useEffect(() => {
@@ -37,12 +37,17 @@ const CharInfo = (props) => {
     const content = !(loading || error || !char) ? <View char={char}/> : null;
 
     return (
-        <div className="char__info">
-            {skeleton}
-            {errorMessage}
-            {spinner}
-            {content}
+        <div>
+            <div className="char__info">
+                {skeleton}
+                {errorMessage}
+                {spinner}
+                {content}
+            </div>
+
+            <CharSearch/>
         </div>
+
     )
 }
 

@@ -4,7 +4,6 @@ import CharInfo from "../charInfo/CharInfo";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 import {useState} from "react";
 
-
 const MainPage = () => {
 
     const [selectedChar, setChar] = useState(null);
@@ -23,8 +22,11 @@ const MainPage = () => {
            <div className="char__content">
                <CharList onCharSelected={onCharSelected}/>
                < ErrorBoundary>
+
                    <CharInfo charId={selectedChar}/>
+
                < /ErrorBoundary>
+
            </div>
        </>
     )

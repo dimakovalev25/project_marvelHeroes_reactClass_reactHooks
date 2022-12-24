@@ -18,6 +18,7 @@ const CharSearch = () => {
     const findChar = () => {
         getChar(name)
             .then(onCharLoaded)
+
     }
 
     const onCharLoaded = (char) => {

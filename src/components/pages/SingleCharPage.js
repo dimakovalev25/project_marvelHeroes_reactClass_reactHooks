@@ -2,7 +2,6 @@ import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import useMarvelService from "../../services/useMarvelService";
 import ErrorMessage from "../errorMessage/ErrorMessage";
-import Spinner from "../spinner/Spinner";
 import {Page404} from "./index";
 import avengers from "../../resources/img/Avengers.png";
 import avengersLogo from "../../resources/img/Avengers_logo.png";
@@ -47,7 +46,6 @@ const SingleCharPage = () => {
             </div>
 
             <div className="single-comic">
-
                 {errorMessage}
                 {spinner}
                 {content}
